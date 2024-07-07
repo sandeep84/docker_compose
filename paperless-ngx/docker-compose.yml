@@ -57,6 +57,7 @@ services:
       - 16922:8000
     volumes:
       - /mnt/userdata/docker/paperless_ng/data:/usr/src/paperless/data
+      - /mnt/userdata/docker/paperless_ng/scripts:/usr/src/paperless/scripts
       - /mnt/userdata/paperless/media:/usr/src/paperless/media
       - /mnt/userdata/paperless/export:/usr/src/paperless/export
       - /mnt/userdata/paperless/consume:/usr/src/paperless/consume
@@ -67,6 +68,8 @@ services:
       PAPERLESS_TIKA_ENABLED: 1
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      PAPERLESS_PRE_CONSUME_SCRIPT: /usr/src/paperless/scripts/removepassword.py
+      PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
   gotenberg:
     image: docker.io/gotenberg/gotenberg:7.10
     restart: unless-stopped
