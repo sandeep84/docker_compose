@@ -8,12 +8,17 @@ services:
       - 5432:5432
     volumes:
       - /mnt/userdata/docker/gnucash/postgres:/var/lib/postgresql/data
-  app:
-    image: ghcr.io/joshuabach/gnucash-web:main
-    restart: always
+  frontend:
+    image: localhost:5000/moneybags-frontend
     env_file: .env
     ports:
-      - 4328:8000
-volumes:
-  db-data: null
+      - 4328:4040
+  backend:
+    image: localhost:5000/moneybags-backend
+    env_file: .env
+    ports:
+      - 8000:8000
+    volumes:
+      - /mnt/userdata/docker/gnucash/rules.txt:/data/rules.txt
+      - /mnt/userdata/docker/gnucash/secrets.json:/data/secrets.json
 networks: {}
