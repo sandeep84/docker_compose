@@ -53,6 +53,12 @@ services:
       - broker
       - gotenberg
       - tika
+    labels:
+      - homepage.group=Documents
+      - homepage.name=Paperless-NGX
+      - homepage.icon=paperless-ngx.png
+      - homepage.href=https://docs.wezzit.org
+      - homepage.description=Document manager
     ports:
       - 16922:8000
     volumes:
