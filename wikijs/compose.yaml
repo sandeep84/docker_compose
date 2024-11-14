@@ -2,10 +2,7 @@ version: "3"
 services:
   db:
     image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: wiki
-      POSTGRES_PASSWORD: KdQ%J3*z$J!X
-      POSTGRES_USER: wikijs
+    env_file: .env
     logging:
       driver: none
     restart: unless-stopped
@@ -25,9 +22,9 @@ services:
       DB_TYPE: postgres
       DB_HOST: db
       DB_PORT: 5432
-      DB_USER: wikijs
-      DB_PASS: KdQ%J3*z$J!X
-      DB_NAME: wiki
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
     restart: unless-stopped
     ports:
       - 5291:3000
