@@ -1,5 +1,17 @@
 version: "3.11"
 services:
+  nextcash:
+    image: ghcr.io/sandeep84/next-cash
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - 4129:3000
+    labels:
+      - homepage.group=Finance
+      - homepage.name=NextCash
+      - homepage.icon=si-cashapp.svg
+      - homepage.href=http://nasbox.local:4129
+      - homepage.description=Nextcash account manager
   db:
     image: postgres:15-alpine
     restart: always
@@ -8,17 +20,4 @@ services:
       - 5432:5432
     volumes:
       - /mnt/userdata/docker/gnucash/postgres:/var/lib/postgresql/data
-  frontend:
-    image: localhost:5000/moneybags-frontend
-    env_file: .env
-    ports:
-      - 4328:4040
-  backend:
-    image: localhost:5000/moneybags-backend
-    env_file: .env
-    ports:
-      - 8000:8000
-    volumes:
-      - /mnt/userdata/docker/gnucash/rules.txt:/data/rules.txt
-      - /mnt/userdata/docker/gnucash/secrets.json:/data/secrets.json
 networks: {}
