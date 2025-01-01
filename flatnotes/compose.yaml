@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  flatnotes:
+    container_name: flatnotes
+    image: dullage/flatnotes:latest
+    environment:
+      PUID: 1000
+      PGID: 1000
+    env_file: .env
+    volumes:
+      - "/mnt/userdata/notes:/data"
+      # Optional. Allows you to save the search index in a different location: 
+      # - "./index:/data/.flatnotes"
+    ports:
+      - "4726:8080"
+    restart: unless-stopped

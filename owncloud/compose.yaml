@@ -25,7 +25,7 @@ services:
     labels:
       - homepage.group=Documents
       - homepage.name=OwnCloud
-      - homepage.icon=owncloud.png
+      - homepage.icon=owncloud.svg
       - homepage.href=https://files.wezzit.org
       - homepage.description=OwnCloud file manager
     healthcheck:
