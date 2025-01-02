@@ -1,0 +1,10 @@
+version: "3.2"
+services:
+  cloudflared-example:
+    image: cloudflare/cloudflared:latest
+    network_mode: host
+    command: tunnel run
+    user: root
+    restart: always
+    env_file: .env
+networks: {}
