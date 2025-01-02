@@ -1,4 +1,3 @@
----
 services:
   calibre-web:
     image: lscr.io/linuxserver/calibre-web:latest
@@ -15,3 +14,10 @@ services:
     ports:
       - 8083:8083
     restart: always
+    labels:
+      - homepage.group=Books
+      - homepage.name=CalibreWeb
+      - homepage.icon=calibre-web.svg
+      - homepage.href=http://books.wezzit.org
+      - homepage.description=Books
+networks: {}

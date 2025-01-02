@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   flatnotes:
     container_name: flatnotes
@@ -9,9 +8,16 @@ services:
       PGID: 1000
     env_file: .env
     volumes:
-      - "/mnt/userdata/notes:/data"
+      - /mnt/userdata/notes:/data
       # Optional. Allows you to save the search index in a different location: 
       # - "./index:/data/.flatnotes"
     ports:
-      - "4726:8080"
+      - 4726:8080
     restart: unless-stopped
+    labels:
+      - homepage.group=Documents
+      - homepage.name=FlatNotes
+      - homepage.icon=nextcloud-notes.svg
+      - homepage.href=http://notes.wezzit.org
+      - homepage.description=Notes
+networks: {}
