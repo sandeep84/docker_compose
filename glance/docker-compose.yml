@@ -1,0 +1,18 @@
+services:
+  glance:
+    container_name: glance
+    image: glanceapp/glance
+    labels:
+      glance.name: Glance
+      glance.icon: di:glance
+      glance.url: http://nasbox.local:8000
+      glance.description: Homepage
+    volumes:
+      - /mnt/userdata/docker/glance/config:/app/config
+      - /mnt/userdata/docker/glance/assets:/app/assets
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 8000:8080
+    env_file: .env
+    restart: unless-stopped
+networks: {}

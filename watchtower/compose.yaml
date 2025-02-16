@@ -2,6 +2,10 @@ version: "3"
 services:
   watchtower:
     image: containrrr/watchtower
+    labels:
+      glance.name: WatchTower
+      glance.icon: di:watchtower
+      glance.description: Container update manager
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

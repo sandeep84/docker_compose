@@ -5,11 +5,10 @@ services:
     restart: unless-stopped
     init: true
     labels:
-      - homepage.group=Finance
-      - homepage.name=Ghostfolio
-      - homepage.icon=ghostfolio.png
-      - homepage.href=https://folio.wezzit.org
-      - homepage.description=Portfolio tracker
+      glance.name: Ghostfolio
+      glance.icon: ghostfolio.png
+      glance.url: https://folio.wezzit.org
+      glance.description: Portfolio tracker
     env_file:
       - ./.env
     environment:

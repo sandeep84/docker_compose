@@ -33,11 +33,17 @@
 services:
   broker:
     image: docker.io/library/redis:7
+    labels:
+      glance.parent: paperless
+      glance.name: Broker
     restart: unless-stopped
     volumes:
       - redisdata:/data
   db:
     image: docker.io/library/postgres:13
+    labels:
+      glance.parent: paperless
+      glance.name: Database
     restart: unless-stopped
     volumes:
       - /mnt/userdata/docker/paperless_ng/postgres:/var/lib/postgresql/data
@@ -54,11 +60,11 @@ services:
       - gotenberg
       - tika
     labels:
-      - homepage.group=Documents
-      - homepage.name=Paperless-NGX
-      - homepage.icon=paperless-ngx.png
-      - homepage.href=https://docs.wezzit.org
-      - homepage.description=Document manager
+      glance.name: Paperless-NGX
+      glance.icon: si:paperlessngx
+      glance.url: https://docs.wezzit.org
+      glance.description: Document manager
+      glance.id: paperless
     ports:
       - 16922:8000
     volumes:
@@ -78,6 +84,9 @@ services:
       PAPERLESS_OCR_USER_ARGS: '{"invalidate_digital_signatures": true}'
   gotenberg:
     image: docker.io/gotenberg/gotenberg:7.10
+    labels:
+      glance.parent: paperless
+      glance.name: Gotenberg
     restart: unless-stopped
     # The gotenberg chromium route is used to convert .eml files. We do not
     # want to allow external content like tracking pixels or even javascript.
@@ -87,6 +96,9 @@ services:
       - --chromium-allow-list=file:///tmp/.*
   tika:
     image: docker.io/apache/tika:latest
+    labels:
+      glance.parent: paperless
+      glance.name: Tika
     restart: unless-stopped
 volumes:
   redisdata: null

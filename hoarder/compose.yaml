@@ -15,13 +15,16 @@ services:
       # OPENAI_API_KEY: ...
       DATA_DIR: /data
     labels:
-      - homepage.group=Media
-      - homepage.name=Hoarder
-      - homepage.icon=hoarder.svg
-      - homepage.href=https://bookmarks.wezzit.org
-      - homepage.description=Bookmark manager
+      glance.name: Hoarder
+      glance.icon: di:hoarder
+      glance.url: https://links.wezzit.org
+      glance.description: Bookmark manager
+      glance.id: hoarder
   chrome:
     image: gcr.io/zenika-hub/alpine-chrome:123
+    labels:
+      glance.parent: hoarder
+      glance.name: Chrome
     restart: unless-stopped
     command:
       - --no-sandbox
@@ -32,6 +35,9 @@ services:
       - --hide-scrollbars
   meilisearch:
     image: getmeili/meilisearch:v1.6.2
+    labels:
+      glance.parent: hoarder
+      glance.name: Search
     restart: unless-stopped
     env_file:
       - .env
@@ -41,6 +47,9 @@ services:
       - meilisearch:/meili_data
   ollama:
     image: ollama/ollama
+    labels:
+      glance.parent: hoarder
+      glance.name: Ollama
     restart: always
     env_file:
       - .env

@@ -23,11 +23,11 @@ services:
       - OWNCLOUD_REDIS_ENABLED=true
       - OWNCLOUD_REDIS_HOST=redis
     labels:
-      - homepage.group=Documents
-      - homepage.name=OwnCloud
-      - homepage.icon=owncloud.svg
-      - homepage.href=https://files.wezzit.org
-      - homepage.description=OwnCloud file manager
+      glance.name: OwnCloud
+      glance.icon: di:owncloud
+      glance.url: https://files.wezzit.org
+      glance.description: OwnCloud file manager
+      glance.id: owncloud
     healthcheck:
       test:
         - CMD
@@ -39,6 +39,9 @@ services:
       - /mnt/userdata/docker/owncloud/data:/mnt/data
   mariadb:
     image: mariadb:10.11 # minimum required ownCloud version is 10.9
+    labels:
+      glance.parent: owncloud
+      glance.name: Database
     container_name: owncloud_mariadb
     restart: always
     environment:
@@ -65,6 +68,9 @@ services:
       - /mnt/userdata/docker/owncloud/mysql:/var/lib/mysql
   redis:
     image: redis:6
+    labels:
+      glance.parent: owncloud
+      glance.name: Redis
     container_name: owncloud_redis
     restart: always
     command:

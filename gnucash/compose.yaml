@@ -2,18 +2,21 @@ version: "3.11"
 services:
   nextcash:
     image: ghcr.io/sandeep84/next-cash
+    labels:
+      glance.name: NextCash
+      glance.icon: si:cashapp
+      glance.url: http://nasbox.local:5001
+      glance.description: Finance manager
+      glance.id: nextcash
     restart: unless-stopped
     env_file: .env
     ports:
       - 4129:3000
-    labels:
-      - homepage.group=Finance
-      - homepage.name=NextCash
-      - homepage.icon=si-cashapp.svg
-      - homepage.href=http://nasbox.local:4129
-      - homepage.description=Nextcash account manager
   db:
     image: postgres:15-alpine
+    labels:
+      glance.parent: nextcash
+      glance.name: Database
     restart: always
     env_file: .env
     ports:

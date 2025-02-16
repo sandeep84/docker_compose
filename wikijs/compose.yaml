@@ -11,11 +11,10 @@ services:
   wiki:
     image: ghcr.io/requarks/wiki:2
     labels:
-      - homepage.group=Documents
-      - homepage.name=WikiJS
-      - homepage.icon=wikijs.png
-      - homepage.href=https://wiki.wezzit.org
-      - homepage.description=Wiki
+      glance.name: WikiJS
+      glance.icon: wikijs.png
+      glance.url: https://wiki.wezzit.org
+      glance.description: Wiki
     depends_on:
       - db
     environment:

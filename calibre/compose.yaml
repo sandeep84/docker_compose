@@ -15,9 +15,8 @@ services:
       - 8083:8083
     restart: always
     labels:
-      - homepage.group=Books
-      - homepage.name=CalibreWeb
-      - homepage.icon=calibre-web.svg
-      - homepage.href=http://books.wezzit.org
-      - homepage.description=Books
+      glance.name: CalibreWeb
+      glance.icon: si:calibreweb
+      glance.url: http://books.wezzit.org
+      glance.description: Books
 networks: {}

@@ -15,9 +15,8 @@ services:
       - 4726:8080
     restart: unless-stopped
     labels:
-      - homepage.group=Documents
-      - homepage.name=FlatNotes
-      - homepage.icon=nextcloud-notes.svg
-      - homepage.href=http://notes.wezzit.org
-      - homepage.description=Notes
+      glance.name: FlatNotes
+      glance.icon: di:flatnotes
+      glance.url: http://notes.wezzit.org
+      glance.description: Notes
 networks: {}
