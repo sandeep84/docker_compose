@@ -1,16 +1,15 @@
 services:
   calibre-web:
-    image: lscr.io/linuxserver/calibre-web:latest
+    image: crocodilestick/calibre-web-automated:latest
     container_name: calibre-web
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - DOCKER_MODS=linuxserver/mods:universal-calibre #optional
-      - OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
     volumes:
       - /mnt/userdata/docker/calibre-web/data:/config
-      - /mnt/userdata/books/Library:/books
+      - /mnt/userdata/books/Library:/calibre-library
+      - /mnt/userdata/books/consume:/cwa-book-ingest
     ports:
       - 8083:8083
     restart: always
@@ -19,4 +18,15 @@ services:
       glance.icon: si:calibreweb
       glance.url: http://books.wezzit.org
       glance.description: Books
+      glance.id: calibre-web
+
+  koreader-calibre-web-sync:
+    restart: always
+    ports:
+      - 2487:5000
+    container_name: koreader
+    image: vincentbitter/koreader-calibre-web-sync:latest     
+    labels:
+      glance.parent: calibre-web
+      glance.name: Progress sync plugin
 networks: {}

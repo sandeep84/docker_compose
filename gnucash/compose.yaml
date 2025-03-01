@@ -5,7 +5,7 @@ services:
     labels:
       glance.name: NextCash
       glance.icon: si:cashapp
-      glance.url: http://nasbox.local:5001
+      glance.url: http://nasbox.local:4129
       glance.description: Finance manager
       glance.id: nextcash
     restart: unless-stopped

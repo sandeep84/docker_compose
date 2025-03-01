@@ -9,7 +9,7 @@ services:
       - /mnt/userdata/docker/backrest/config:/config
       - /mnt/userdata/docker/backrest/cache:/cache
       - /mnt/userdata:/userdata # [optional] mount local paths to backup here.
-    #      - /MY-REPOS:/repos # [optional] mount repos if using local storage, not necessary for remotes e.g. B2, S3, etc.
+      - /media/sdb1:/external_disk
     labels:
       glance.name: BackRest
       glance.icon: di:backrest

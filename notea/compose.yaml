@@ -1,0 +1,32 @@
+version: "3"
+services:
+  notea:
+    image: cinwell/notea
+    container_name: notea
+    env_file: .env
+    environment:
+      - STORE_BUCKET=notea
+      - STORE_END_POINT=http://notea-s3:9000
+      - STORE_FORCE_PATH_STYLE=true
+      - COOKIE_SECURE=true
+      - BASE_URL="https://notes.wezzit.org"
+    ports:
+      - 4726:3000
+    labels:
+      glance.name: Notea
+      glance.icon: di:note-mark
+      glance.url: https://notes.wezzit.org
+      glance.description: List and note taking
+      glance.id: notea
+  notea-s3:
+    image: minio/minio
+    container_name: notea-s3
+    env_file: .env
+    volumes:
+      - /mnt/userdata/docker/notea/minio-data:/data
+    entrypoint: sh
+    command: -c 'mkdir -p /data/notea && /usr/bin/minio server /data'
+    labels:
+      glance.parent: notea
+      glance.name: Minio
+networks: {}

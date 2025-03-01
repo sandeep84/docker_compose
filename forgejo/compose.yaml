@@ -1,0 +1,40 @@
+networks:
+  forgejo:
+    external: false
+services:
+  server:
+    image: codeberg.org/forgejo/forgejo:10
+    container_name: forgejo
+    labels:
+      glance.name: Forgejo
+      glance.icon: si:forgejo
+      glance.url: https://git.wezzit.org
+      glance.description: Git server
+      glance.id: forgejo
+    env_file: .env
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    networks:
+      - forgejo
+    volumes:
+      - /mnt/userdata/docker/forgejo/forgejo:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5762:3000
+      - 222:22
+    depends_on:
+      - db
+  db:
+    image: postgres:14
+    labels:
+      glance.parent: forgejo
+      glance.name: Database
+    restart: always
+    env_file: .env
+    networks:
+      - forgejo
+    volumes:
+      - /mnt/userdata/docker/forgejo/postgres:/var/lib/postgresql/data

@@ -9,6 +9,9 @@ services:
       glance.description: Cloudflare tunnel manager
     network_mode: host
     command: tunnel run
+    dns:
+      - 192.168.0.1
+      - 1.1.1.1
     user: root
     restart: always
     env_file: .env
