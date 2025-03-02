@@ -6,14 +6,13 @@ services:
     labels:
       glance.name: Pi-hole
       glance.icon: si:pihole
-      glance.url: http://nasbox.local:5793
+      glance.url: http://nasbox.local:5793/admin/login
       glance.description: Pi-hole DNS server
       glance.id: pihole
     ports:
       # DNS Ports
       - 53:53/tcp
       - 53:53/udp
-      # HTTP(S) ports
       - 5793:80/tcp
       #- 443:443/tcp
       # Uncomment the below if using Pi-hole as your DHCP Server
