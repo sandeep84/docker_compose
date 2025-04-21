@@ -20,6 +20,8 @@ services:
       glance.url: https://links.wezzit.org
       glance.description: Bookmark manager
       glance.id: hoarder
+    extra_hosts:
+      - host.docker.internal:host-gateway
   chrome:
     image: gcr.io/zenika-hub/alpine-chrome:123
     labels:
@@ -45,19 +47,21 @@ services:
       MEILI_NO_ANALYTICS: "true"
     volumes:
       - meilisearch:/meili_data
-  ollama:
-    image: ollama/ollama
-    labels:
-      glance.parent: hoarder
-      glance.name: Ollama
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - ollama:/root/.ollama
-    ports:
-      - 11434:11434
+#  ollama:
+#    image: ollama/ollama
+#    labels:
+#      glance.parent: hoarder
+#      glance.name: Ollama
+#    restart: always
+#    env_file:
+#      - .env
+#    volumes:
+#      - ollama:/root/.ollama
+#    ports:
+#      - 11434:11434
 volumes:
   meilisearch: null
   ollama: null
-networks: {}
+networks:
+  ollama_default:
+    external: true

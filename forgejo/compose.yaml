@@ -3,7 +3,7 @@ networks:
     external: false
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:10
+    image: codeberg.org/forgejo/forgejo:latest
     container_name: forgejo
     labels:
       glance.name: Forgejo
@@ -11,6 +11,13 @@ services:
       glance.url: https://git.wezzit.org
       glance.description: Git server
       glance.id: forgejo
+      # Configure dashboard & API enablement (complement to static config)
+      traefik.enable: true
+      traefik.http.routers.forgejo.entrypoints: websecure
+      traefik.http.routers.forgejo.rule: Host(`git.wezzit.org`)
+      traefik.http.routers.forgejo.tls: true
+      traefik.http.routers.forgejo.tls.certresolver: myresolver
+      traefik.http.services.forgejo.loadbalancer.server.port: 3000
     env_file: .env
     environment:
       - USER_UID=1000

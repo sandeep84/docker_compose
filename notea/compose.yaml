@@ -3,6 +3,7 @@ services:
   notea:
     image: cinwell/notea
     container_name: notea
+    restart: always
     env_file: .env
     environment:
       - STORE_BUCKET=notea
@@ -23,11 +24,10 @@ services:
       traefik.http.routers.notea.entrypoints: websecure
       traefik.http.routers.notea.tls: true
       # traefik.http.services.notea.loadbalancer.server.port: 3000
-    networks:
-      - traefik_default
   notea-s3:
     image: minio/minio
     container_name: notea-s3
+    restart: always
     env_file: .env
     volumes:
       - /mnt/userdata/docker/notea/minio-data:/data
@@ -36,8 +36,4 @@ services:
     labels:
       glance.parent: notea
       glance.name: Minio
-    networks:
-      - traefik_default
-networks:
-  traefik_default:
-    external: true
+networks: {}
